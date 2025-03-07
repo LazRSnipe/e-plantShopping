@@ -39,10 +39,27 @@ function ProductList({ onHomeClick }) {
         setAddedToCart((prevState) => ({ ...prevState, [plant.name]: true }));
     };
 
+    const handleGoToCart = () => {
+        setShowCart(true);  // Show the cart view when the user wants to view the cart
+    };
+
+    const handleGoToHome = () => {
+        setShowCart(false); // Show the product list when the user wants to go back to the home page
+        if (onHomeClick) {
+            onHomeClick(); // Optional: If you want to handle home navigation in the parent component
+        }
+    };
+
     return (
         <div>
             <div className="navbar">
                 <h1>Paradise Nursery</h1>
+                <button className="navbar-button" onClick={handleGoToHome}>
+                    Home
+                </button>
+                <button className="navbar-button" onClick={handleGoToCart}>
+                    Go to Cart
+                </button>
             </div>
             {!showCart ? (
                 <div className="product-grid">
