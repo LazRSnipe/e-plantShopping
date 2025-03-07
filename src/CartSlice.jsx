@@ -1,32 +1,14 @@
 
-import { createSlice } from "@reduxjs/toolkit";
+// Import necessary functions and reducers
+import { configureStore } from '@reduxjs/toolkit';
+import cartReducer from './CartSlice';
 
-const cartSlice = createSlice({
-  name: "cart",
-  initialState: {
-    items: []
-  },
-  reducers: {
-    addItem: (state, action) => {
-      const existingItem = state.items.find(item => item.name === action.payload.name);
-      if (existingItem) {
-        existingItem.quantity += 1;
-      } else {
-        state.items.push({ ...action.payload, quantity: 1 });
-      }
+// Configure the Redux store with the cart reducer
+const store = configureStore({
+    reducer: {
+        cart: cartReducer,  // cart slice of the state is managed by cartReducer
     },
-    removeItem(state, action) {
-      state.items = state.items.filter(item => item.id !== action.payload); // Remove by id
-    },
-    updateQuantity: (state, action) => {
-      const { name, quantity } = action.payload;
-      const item = state.items.find(item => item.name === name);
-      if (item) {
-        item.quantity = quantity;
-      }
-    }
-  }
 });
 
-export const { addItem, removeItem, updateQuantity } = cartSlice.actions;
-export default cartSlice.reducer;
+// Export the store so it can be used in the app
+export default store;
