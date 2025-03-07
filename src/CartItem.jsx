@@ -39,7 +39,7 @@ const CartItem = ({ onContinueShopping }) => {
 
   // Handle item removal from the cart
   const handleRemove = (item) => {
-    dispatch(removeItem(item.name));
+    dispatch(removeItem(item.id)); // Use item id for removal
   };
 
   // Handle continue shopping: calls the passed function to return to product list
